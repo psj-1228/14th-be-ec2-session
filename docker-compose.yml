@@ -15,7 +15,8 @@ services:
       JWT_AT_EXPIRATION: ${JWT_AT_EXPIRATION}
       JWT_RT_EXPIRATION: ${JWT_RT_EXPIRATION}
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     restart: always
 
   mysql:
@@ -30,6 +31,12 @@ services:
       MYSQL_PASSWORD: ${DATABASE_PASS}
     volumes:
       - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} --silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 30s
     restart: always
 
 volumes:
