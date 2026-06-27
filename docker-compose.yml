@@ -26,6 +26,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${DATABASE_PASS}
       MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_USER: ${DATABASE_USER}
+      MYSQL_PASSWORD: ${DATABASE_PASS}
     volumes:
       - mysql-data:/var/lib/mysql
     restart: always
