@@ -32,7 +32,7 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} --silent"]
+      test: ['CMD-SHELL', 'mysql --host=localhost --user="$${MYSQL_USER}" --password="$${MYSQL_PASSWORD}" "$${MYSQL_DATABASE}" --execute="SELECT 1"']
       interval: 5s
       timeout: 3s
       retries: 20
